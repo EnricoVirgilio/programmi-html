@@ -1,0 +1,6 @@
+td{border:4px dashed rgb(175, 173, 173); border-collapse:collapse}
+table{border-spacing: 9px;}
+td{padding: 1px 3px}
+td{font-size: 100px;}
+td.type1{background: rgb(75, 87, 250)}
+td.type2{background: rgb(247, 244, 97)}

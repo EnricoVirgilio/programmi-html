@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>
+            Lancia dado
+        </title>
+        <style>
+            img{height: 30%; width: 15%;}
+            body{text-align: center; background-color: #00ffff;}
+        </style>
+        <script>
+            function LanciaDado()
+            {
+                var risultato;
+                risultato = Math.trunc(6*Math.random()) + 1;
+                //alert(risultato);
+                var source = "img/" + String(risultato) + ".jpg"
+                //alert(source)
+                document.getElementById("risultato").src = source
+            }
+        </script>
+    </head>
+    <body>
+        <br><br>
+        <img src = "img/lancia.jpg" onclick = "LanciaDado();"/>
+        <img src = "img/0.jpg" id = "risultato"/>
+    </body>
+</html>

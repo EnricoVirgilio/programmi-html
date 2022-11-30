@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <style>
+            table{
+                position: absolute;
+                top: 20;
+                right: 30;
+            }
+            table, td, th{
+                border: 1px solid rgb(0, 0, 0);
+            }
+            tr.gold{
+                background: gold;
+            }
+            tr.silver{
+                background: silver;
+            }
+            tr.bronze{
+                background: #f07320;
+            }
+        </style>
+        <script>
+            let contatore = 0;
+            let timer = 5;
+
+            let Lista_record = new Array;
+            Lista_record[0] = 0;
+            Lista_record[1] = 0;
+            Lista_record[2] = 0;
+
+            let Lista_nomi = new Array;
+            Lista_nomi[0] = "None";
+            Lista_nomi[1] = "None";
+            Lista_nomi[2] = "None";
+
+            const AggiornaLista = (nuovo_valore, nuovo_nome, posizione_nuovo_valore) => {
+                for(let i = 2; i >= posizione_nuovo_valore; i--){
+                    if(i-1 >= posizione_nuovo_valore){
+                        Lista_record[i] = Lista_record[i-1];
+                        Lista_nomi[i] = Lista_nomi[i-1];
+                    }
+                    else{
+                        Lista_record[i] = nuovo_valore;
+                        Lista_nomi[i] = nuovo_nome;
+                    }
+                }
+            }
+
+            const AggiornaTabella = () => {
+                for(let i = 0; i < 3; i++){
+                    if(Lista_record[i] != 0){
+                        id_punteggio = "punt" + i;
+                        document.getElementById(id_punteggio).innerHTML = Lista_record[i];
+
+                        id_nome = "nome" + i;
+                        document.getElementById(id_nome).innerHTML = Lista_nomi[i]
+                    }
+                }
+            }
+
+            const ContaClick = () => {
+                contatore += 1;
+                console.log(`contatore ${contatore}`);
+            }
+
+            setInterval(() => {
+                //console.log(`timer ${timer}`);
+                if(timer > -1){
+                    document.getElementById("timer").innerHTML = `MANCANO ${timer} SECONDI`;
+                }
+                timer -= 1;
+                if(timer < 0){
+                    document.getElementById("click").disabled = true
+                }
+                if(timer == -2){
+                    if(contatore > Lista_record[0]){
+                        let nome = prompt(`Congratulazioni! Sei al primo posto con un valore di: ${contatore}, inserire nome giocatore`);
+                        AggiornaLista(contatore, nome, 0);
+                        document.getElementById("punteggio_max").innerHTML = `IL PUNTEGGIO MIGLIORE È: ${Lista_record[0]}`
+                    }
+                    else if(contatore > Lista_record[1]){
+                        let nome = prompt(`Congratulazioni! Sei al secondo posto con un valore di: ${contatore}, inserire nome giocatore`);
+                        AggiornaLista(contatore, nome, 1);
+                    }
+                    else if(contatore > Lista_record[2]){
+                        let nome = prompt(`Congratulazioni! Sei al terzo posto con un valore di: ${contatore}, inserire nome giocatore`);
+                        AggiornaLista(contatore, nome, 2);
+                    }
+                    timer = 5;
+                    contatore = 0;
+                    document.getElementById("click").disabled = false
+                }
+                AggiornaTabella();
+            }, 1000);
+        </script>
+    </head>
+
+    <body>
+        <h1> Gioco del Click </h1>
+        <table>
+            <tr>
+                <th>Classifica</th>
+                <th>Nome</th>
+                <th>Punteggio</th>
+            </tr>
+            <tr class = "gold">
+                <th>1</th>
+                <th id = "nome0">None</th>
+                <th id = "punt0">None</th>
+            </tr>
+            <tr class = "silver">
+                <th>2</th>
+                <th id = "nome1">None</th>
+                <th id = "punt1">None</th>
+            </tr>
+            <tr class = "bronze">
+                <th>3</th>
+                <th id = "nome2">None</th>
+                <th id = "punt2">None</th>
+            </tr>
+        </table>
+        <input type = "button" id = "click" value = "CLICK" onclick = "ContaClick();"/>
+        <br>
+        <h4 id = "punteggio_max">NESSUNA PARTITA GIOCATA</h4>
+        <h4 id = "timer"></h4>
+        
+    </body>
+</html>

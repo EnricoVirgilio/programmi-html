@@ -1,0 +1,111 @@
+<!--
+Scrivere un programma in JS ed HTML per registrare
+i dati di una squadra di pallavolo
+Prevedere interfaccia grafica con:
+- finestra del browser
+- bottone inserisci
+- bottone visualizza
+- bottone "max punti"
+- bottone "max ricezioni"
+- text area "output"
+
+Come struttura dati utilizzare 4 array globali di 6 elementi:
+
+nome, cognome, punti, ricezioni
+
+prevedere:
+
+1) funzione inserisciDati(): sul click del pulsante
+   "inserisci" chiedi i dati dei 6 giocatori tramite
+   finestra di prompt e li salva nei 4 array
+
+2) funzione visualizzaDati(): mostra i dati inseriti
+nella textarea (suggerimento: utilizzare innerHTML)
+
+3) funzione maxPunti(): mostra con finestra di alert
+nome e cognome del giocatore che ha effettuato più punti
+
+4) funzione maxRicezioni(): mostra con finestra di alert
+nome e cognome del giocatore che ha effettuato più ricezioni
+-->
+<head>
+    <script>
+        var Lista_nomi = new Array;
+        var Lista_cognomi = new Array;
+        var Lista_punti = new Array;
+        var Lista_ricezioni = new Array;
+
+        function InserisciDati()
+        {
+            for(var i=0; i<6; i++)
+            {
+                var domanda_nome = "inserisci nome giocatore " + String(i + 1);
+                var domanda_cognome = "inserisci cognome giocatore " + String(i + 1);
+                var domanda_punti = "inserisci punti giocatore " + String(i + 1);
+                var domanda_ricezioni = "inserisci ricezioni giocatore " + String(i + 1);
+                
+                var nome = prompt(domanda_nome);
+                var cognome = prompt(domanda_cognome);
+                var punti = prompt(domanda_punti);
+                var ricezioni = prompt(domanda_ricezioni);
+
+                Lista_nomi[i] = nome;
+                Lista_cognomi[i] = cognome;
+                Lista_punti[i] = punti;
+                Lista_ricezioni[i] = ricezioni;
+            }
+        }
+
+        function VisualizzaDati()
+        {
+            var textarea = document.getElementById("output");
+            textarea.value = "";
+            for(var i=0; i<6; i++)
+            {
+                textarea.value += "Giocatore " + String(i + 1) + "\n";
+                textarea.value += "Nome: " + Lista_nomi[i] + "\n";
+                textarea.value += "Cognome: " + Lista_cognomi[i] + "\n";
+                textarea.value += "Punti: " + Lista_punti[i] + "\n";
+                textarea.value += "Ricezioni: " + Lista_ricezioni[i] + "\n";
+                textarea.value += "\n";
+            }
+        }
+        function MaxPunti()
+        {
+            var Max_punti = 0;
+            for(var i = 0; i<6; i++)
+            {
+                if (Lista_punti[i] >= Max_punti)
+                {
+                    Max_punti = Lista_punti[i];
+                }
+            }
+            alert("il valore massimo di punti è " + String(Max_punti));
+        }
+
+        function maxRicezioni()
+        {
+            var Max_ricezioni = 0;
+            var i_max_ricezioni = 0;
+            for(var i = 0; i<6; i++)
+            {
+                if (Lista_ricezioni[i] >= Max_ricezioni)
+                {
+                    Max_ricezioni = Lista_ricezioni[i];
+                    i_max_ricezioni = i;
+                }
+            }
+            alert("il valore massimo di ricezioni è " + String(Max_ricezioni) + "\n realizzate da " + Lista_nomi[i_max_ricezioni] + " " + Lista_cognomi[i_max_ricezioni]);
+        }
+
+    </script>
+</head>
+<body>
+    <input type = "button" value = "inserisci" onclick = "InserisciDati();"/>
+    <input type = "button" value = "visualizza" onclick = "VisualizzaDati();"/>
+    <input type = "button" value = "max punti" onclick = "MaxPunti();"/>
+    <input type = "button" value = "max ricezioni" onclick = "MaxRicezioni();"/>
+    <br><br>
+    <textarea id = "output" readonly>
+    </textarea>
+</body>
